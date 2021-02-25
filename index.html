@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .circle {
+            position: absolute;
+        }
+
+        .tmp-base {
+            width: 91px;
+            height: 91px;
+            background: linear-gradient(to right, rgb(238, 156, 167), rgb(255, 221, 225));
+            position: absolute;
+            background-size: 150% 150%;
+            border-radius: 45.5px;
+            left: 30.7%;
+            top: 19.7%;
+            transition: all 5s;
+            animation-name: animation-1;
+        }
+
+        .tmp-from {
+            background-position: 0;
+            transform: translate(-3px, -4px) scale(0.91);
+            opacity: 0.58;
+            filter: blur(2.9px);
+        }
+
+        .tmp-to {
+            background-position: 100%;
+            transform: translate(5px, 3px) scale(1.2);
+            opacity: 0.79;
+            filter: blur(2.1px);
+        }
+        /*@keyframes animation-1 {0%{transform: scale(0.1);opacity: 0.2;filter: blur(1px);}100%{transform: scale(1.2);opacity: 0.8;filter: blur(2px);}}*/
+    </style>
+</head>
+<body>
+<div class="app-container">
+<!--    <div class="tmp-base"></div>-->
+</div>
+<script src="class_circle.js"></script>
+<script>
+    // const dom = document.getElementsByClassName('tmp-base')[0]
+    // setInterval(() => {
+    //     dom.classList.toggle("tmp-from")
+    //     dom.classList.toggle("tmp-to")
+    // }, 5 * 1000)
+
+    // document.styleSheets[0].cssRules[6][0].cssText
+    // document.styleSheets[0].removeRule(6)
+    const domApp = document.getElementsByClassName("app-container")[0]
+    const classCircle = new Circle(domApp)
+    // classCircle.generateCircleAnimateByKeyframes(2, 3)
+    // classCircle.runAnimateByKeyframes()
+    classCircle.runAnimateByKeyframesV2()
+    window.addEventListener('resize', () => {
+        classCircle.updateSize()
+    })
+</script>
+</body>
+</html>
