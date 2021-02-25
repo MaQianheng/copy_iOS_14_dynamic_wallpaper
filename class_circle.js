@@ -89,7 +89,7 @@ Circle.prototype.initDomCircle = function (numTimeStamp, arrTranslateX, arrTrans
     const strBGC = this.generateRandomBGC()
     domDiv.id = strId
     domDiv.className = 'circle'
-    domDiv.style = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(100, 1000) / 10}%; top: ${generateRandomIntegerNumber(100, 1000) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation: circle-style-${numTimeStamp} ${numAnimateDuration}s linear alternate ${numAnimateCount};`
+    domDiv.style = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(10, 900) / 10}%; top: ${generateRandomIntegerNumber(10, 900) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation: circle-style-${numTimeStamp} ${numAnimateDuration}s linear alternate ${numAnimateCount};`
     return domDiv
 }
 
@@ -207,7 +207,7 @@ Circle.prototype.generateCircleBase = function () {
 
 Circle.prototype.generateStyleAndKF = function (strId) {
     const {numSideLength, numRadius, strBGC, arrOpacity, arrBlur, arrTranslateX, arrTranslateY, arrScale, numAnimateCount, numAnimateDuration} = this.generateCircleBase()
-    const strStyle = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(100, 1000) / 10}%; top: ${generateRandomIntegerNumber(100, 1000) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation-name: ${strId}; animation: ${numAnimateDuration}s linear alternate ${numAnimateCount};`
+    const strStyle = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(10, 900) / 10}%; top: ${generateRandomIntegerNumber(10, 900) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation-name: ${strId}; animation: ${numAnimateDuration}s linear alternate ${numAnimateCount};`
     const strKeyframes = `@keyframes ${strId}{0%{transform: scale(${arrScale[0]});opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{transform: scale(${arrScale[1]});opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
     return {strStyle, strKeyframes}
 }
