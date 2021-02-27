@@ -37,12 +37,16 @@ Circle.prototype.updateHypotenuse = function () {
     this.hypotenuse = Math.floor(Math.sqrt(Math.pow(parseInt(containerWidth), 2) + Math.pow(parseInt(containerHeight), 2)))
 }
 
-Circle.prototype.debounceUpdateSize = function (that) {
+Circle.prototype.debounceUpdateSize = function () {
     let timeOut = null
-    return function () {
+    return () => {
         if (timeOut !== null) clearTimeout(timeOut)
-        timeOut = setTimeout(this.updateHypotenuse.bind(that), 1000)
-    }.bind(that)
+        timeOut = setTimeout(() => {
+            timeOut = null
+            clearTimeout(timeOut)
+            this.updateHypotenuse()
+        }, 1000)
+    }
 }
 
 Circle.prototype.generateId = function () {
