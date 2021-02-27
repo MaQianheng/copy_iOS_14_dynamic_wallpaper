@@ -18,7 +18,8 @@ class Circle {
             arrHidingDomId: [],
             arrShowingDomId: [],
             // 0: hide, 1: show
-            objObjectStatus: {}
+            objObjectStatus: {},
+            debounceTimer: null
         }
         this.checkObjConfig(objUserConfig)
         this.updateHypotenuse()
@@ -37,8 +38,12 @@ Circle.prototype.updateHypotenuse = function () {
     this.hypotenuse = Math.floor(Math.sqrt(Math.pow(parseInt(containerWidth), 2) + Math.pow(parseInt(containerHeight), 2)))
 }
 
-Circle.prototype.updateSize = function () {
-    this.updateHypotenuse()
+Circle.prototype.debounceUpdateSize = function (that) {
+    let timeOut = null
+    return function () {
+        if (timeOut !== null) clearTimeout(timeOut)
+        timeOut = setTimeout(this.updateHypotenuse.bind(that), 1000)
+    }.bind(that)
 }
 
 Circle.prototype.generateId = function () {
