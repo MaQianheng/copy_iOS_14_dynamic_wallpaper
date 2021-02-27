@@ -18,8 +18,7 @@ class Circle {
             arrHidingDomId: [],
             arrShowingDomId: [],
             // 0: hide, 1: show
-            objObjectStatus: {},
-            debounceTimer: null
+            objObjectStatus: {}
         }
         this.checkObjConfig(objUserConfig)
         this.updateHypotenuse()
