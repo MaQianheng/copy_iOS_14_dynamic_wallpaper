@@ -70,9 +70,7 @@
     // classCircle.generateCircleAnimateByKeyframes(2, 3)
     // classCircle.runAnimateByKeyframes()
     classCircle.runAnimateByKeyframesV2()
-    window.addEventListener('resize', () => {
-        classCircle.updateSize()
-    })
+    window.addEventListener('resize', classCircle.debounceUpdateSize(classCircle))
 </script>
 </body>
 </html>
