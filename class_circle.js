@@ -86,115 +86,20 @@ Circle.prototype.generateRandomTranslateY = function () {
 }
 
 Circle.prototype.generateRandomScale = function () {
-    return [generateRandomIntegerNumber(80, 100) / 100, generateRandomIntegerNumber(110, 120) / 100]
-}
-
-Circle.prototype.initDomCircle = function (numTimeStamp, arrTranslateX, arrTranslateY, arrScale, arrOpacity, arrBlur, numAnimateCount, numAnimateDuration) {
-    const strId = `circle-${numTimeStamp}`
-    const domDiv = document.createElement('div')
-    const numSideLength = this.generateRandomRadius()
-    const numRadius = numSideLength / 2
-    const strBGC = this.generateRandomBGC()
-    domDiv.id = strId
-    domDiv.className = 'circle'
-    domDiv.style = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(10, 900) / 10}%; top: ${generateRandomIntegerNumber(10, 900) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation: circle-style-${numTimeStamp} ${numAnimateDuration}s linear alternate ${numAnimateCount};`
-    return domDiv
-}
-
-Circle.prototype.initDomStyle = function (arrTranslateX, arrTranslateY, arrScale, numTimeStamp, arrOpacity, arrBlur) {
-    const strId = `circle-style-${numTimeStamp}`
-    // const keyframes = `@keyframes ${strId}{0%{background-position: 0;transform: translate(${arrTranslateX[0]}px, ${arrTranslateY[0]}px) scale(${arrScale[0]});opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{background-position: 100%;transform: translate(${arrTranslateX[1]}px, ${arrTranslateY[1]}px) scale(${arrScale[1]});opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
-    const keyframes = `@keyframes ${strId}{0%{transform: scale(${arrScale[0]});opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{transform: scale(${arrScale[1]});opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
-    const domStyle = document.createElement('style')
-    domStyle.id = strId
-    domStyle.type = 'text/css'
-    domStyle.innerHTML += keyframes
-    return domStyle
-}
-
-Circle.prototype.setEaseInShowCircleFunc = function (domDiv, arrOpacity, domStyle, numCircleShowInterval) {
-    let circleEaseIn = setInterval(() => {
-        const strOpacity = (parseFloat(domDiv.style.opacity) + 0.01).toFixed(2)
-        domDiv.style.opacity = strOpacity
-        if (parseFloat(strOpacity) === arrOpacity[0]) {
-            // this.domStyle.insertRule("@keyframes spinIt { 0% { transform: rotate(-20deg); } 100% { transform: rotate(20deg); } }", 8)
-            this.domContainer.appendChild(domStyle)
-            this.objAppConfig.numWakingObjectCount += 1
-            clearInterval(circleEaseIn)
-        }
-    }, numCircleShowInterval)
-}
-
-Circle.prototype.setEaseOutDestroyCircleFunc = function (domDiv, numTimeStamp, numCircleDestroyInterval) {
-    let circleDestroyTimeOut = setTimeout(() => {
-        clearTimeout(circleDestroyTimeOut)
-        if (!document.getElementById(`circle-style-${numTimeStamp}`)) {
-            this.setEaseOutDestroyCircleFunc(domDiv, numTimeStamp, numCircleDestroyInterval / 5)
-            return
-        }
-        document.getElementById(`circle-style-${numTimeStamp}`).remove()
-        let circleEaseOut = setInterval(() => {
-            const strOpacity = (parseFloat(domDiv.style.opacity) - 0.01).toFixed(2)
-            domDiv.style.opacity = strOpacity
-            if (parseFloat(strOpacity) === 0) {
-                document.getElementById(`circle-${numTimeStamp}`).remove()
-                this.objAppConfig.numWakingObjectCount -= 1
-                clearInterval(circleEaseOut)
-            }
-        }, generateRandomIntegerNumber(0.1 * 100, 0.1 * 1000))
-    }, numCircleDestroyInterval)
-}
-
-Circle.prototype.generateCircleAnimateByKeyframes = function (numAnimateCount, numAnimateDuration) {
-    const numTimeStamp = Date.now()
-    const numDepth = this.generateRandomDepth()
-    const arrOpacity = this.generateRandomOpacity(numDepth)
-    const arrBlur = this.generateRandomBlur(numDepth)
-    const arrTranslateX = this.generateRandomTranslateX()
-    const arrTranslateY = this.generateRandomTranslateY()
-    const arrScale = this.generateRandomScale()
-    if (!numAnimateCount) {
-        numAnimateCount = generateRandomIntegerNumber(5, 10)
-    }
-    numAnimateCount = numAnimateCount % 2 === 0 ? numAnimateCount : numAnimateCount + 1
-    numAnimateDuration = numAnimateDuration ? numAnimateDuration : generateRandomIntegerNumber(5, 10)
-    const numTotalAnimateDuration = numAnimateCount * numAnimateDuration
-
-    const domDiv = this.initDomCircle(numTimeStamp, arrTranslateX, arrTranslateY, arrScale, arrOpacity, arrBlur, numAnimateCount, numAnimateDuration)
-    const domStyle = this.initDomStyle(arrTranslateX, arrTranslateY, arrScale, numTimeStamp, arrOpacity, arrBlur)
-    this.domContainer.appendChild(domDiv)
-
-    const numCircleShowInterval = generateRandomIntegerNumber(0.1 * 100, 0.1 * 1000)
-    const numCircleDestroyInterval = numTotalAnimateDuration * 1200 + numCircleShowInterval + 200
-    this.setEaseInShowCircleFunc(domDiv, arrOpacity, domStyle, numCircleShowInterval)
-    this.setEaseOutDestroyCircleFunc(domDiv, numTimeStamp, numCircleDestroyInterval)
-}
-
-Circle.prototype.runAnimateByKeyframes = function () {
-    const tmp = Math.floor(this.objAppConfig.numMaxObjectCount * 0.85)
-    for (let i = 0; i < tmp; i++) {
-        setTimeout(() => {
-            this.generateCircleAnimateByKeyframes()
-        }, i * 200)
-    }
-    setInterval(() => {
-        if (this.objAppConfig.numWakingObjectCount < this.objAppConfig.numMaxObjectCount) {
-            this.generateCircleAnimateByKeyframes()
-            // this.objAppConfig.numNextCheckInterval = generateRandomIntegerNumber(3 * 1000, 10 * 1000)
-        }
-    }, this.objAppConfig.numNextCheckInterval)
+    return [generateRandomIntegerNumber(95, 100) / 100, generateRandomIntegerNumber(105, 110) / 100]
 }
 
 Circle.prototype.generateCircleBase = function () {
-    const numSideLength = this.generateRandomRadius()
+    const numDepth = this.generateRandomDepth()
+    const numSideLength = this.generateRandomRadius() / numDepth
     const numRadius = numSideLength / 2
     const strBGC = this.generateRandomBGC()
-    const numDepth = this.generateRandomDepth()
     const arrOpacity = this.generateRandomOpacity(numDepth)
     const arrBlur = this.generateRandomBlur(numDepth)
-    const arrTranslateX = this.generateRandomTranslateX()
-    const arrTranslateY = this.generateRandomTranslateY()
-    const arrScale = this.generateRandomScale()
+    // const arrTranslateX = this.generateRandomTranslateX()
+    // const arrTranslateY = this.generateRandomTranslateY()
+    const arrScaleX = this.generateRandomScale()
+    const arrScaleY = this.generateRandomScale()
     const numTmp = generateRandomIntegerNumber(5, 10)
     // confirm count is odd
     const numAnimateCount = numTmp % 2 === 0 ? numTmp : numTmp + 1
@@ -205,33 +110,31 @@ Circle.prototype.generateCircleBase = function () {
         strBGC,
         arrOpacity,
         arrBlur,
-        arrTranslateX,
-        arrTranslateY,
-        arrScale,
+        // arrTranslateX,
+        // arrTranslateY,
+        arrScaleX,
+        arrScaleY,
         numAnimateCount,
         numAnimateDuration
     }
 }
 
-Circle.prototype.generateStyleAndKF = function (strId) {
-    const {numSideLength, numRadius, strBGC, arrOpacity, arrBlur, arrTranslateX, arrTranslateY, arrScale, numAnimateCount, numAnimateDuration} = this.generateCircleBase()
-    const strStyle = `width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(10, 900) / 10}%; top: ${generateRandomIntegerNumber(10, 900) / 10}%; opacity: 0; filter: blur(${arrBlur[0]}px);transform: scale(${arrScale[0]}); animation-name: ${strId}; animation: ${numAnimateDuration}s linear alternate ${numAnimateCount};`
-    const strKeyframes = `@keyframes ${strId}{0%{transform: scale(${arrScale[0]});opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{transform: scale(${arrScale[1]});opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
-    return {strStyle, strKeyframes}
+Circle.prototype.generateStyle = function (strId) {
+    const {numSideLength, numRadius, strBGC, arrOpacity, arrBlur, arrTranslateX, arrTranslateY, arrScaleX, arrScaleY, numAnimateCount, numAnimateDuration} = this.generateCircleBase()
+    return `#circle-${strId} {width:${numSideLength}px; height:${numSideLength}px; background: linear-gradient(to right, ${strBGC});border-radius: ${numRadius}px; left: ${generateRandomIntegerNumber(10, 900) / 10}%; top: ${generateRandomIntegerNumber(10, 900) / 10}%; filter: blur(${arrBlur[0]}px);transform: scale3d(${arrScaleX[0]}, ${arrScaleY[0]}, 1); animation: ${numAnimateDuration}s linear alternate ${numAnimateCount};} @keyframes ${strId}{0%{transform: scale3d(${arrScaleX[0]}, ${arrScaleY[0]}, 1);opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{transform: scale3d(${arrScaleX[1]}, ${arrScaleY[1]}, 1);opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
 }
 
 Circle.prototype.initCircleV2 = function (strId) {
-    // const keyframes = `@keyframes ${strId}{0%{background-position: 0;transform: translate(${arrTranslateX[0]}px, ${arrTranslateY[0]}px) scale(${arrScale[0]});opacity: ${arrOpacity[0]};filter: blur(${arrBlur[0]}px);}100%{background-position: 100%;transform: translate(${arrTranslateX[1]}px, ${arrTranslateY[1]}px) scale(${arrScale[1]});opacity: ${arrOpacity[1]};filter: blur(${arrBlur[1]}px);}}`
     const domDiv = document.createElement('div')
-    const {strStyle, strKeyframes} = this.generateStyleAndKF(strId)
+    const strStyle = this.generateStyle(strId)
     const domStyle = document.createElement('style')
     domDiv.id = `circle-${strId}`
     domDiv.className = 'circle'
-    domDiv.style = strStyle
+    domDiv.style.opacity = "0"
 
     domStyle.id = `circle-style-${strId}`
     domStyle.type = 'text/css'
-    domStyle.innerHTML = strKeyframes
+    domStyle.innerHTML = strStyle
     return {domDiv, domStyle}
 }
 
@@ -239,27 +142,26 @@ Circle.prototype.generateRandomMilSec = function () {
     return generateRandomIntegerNumber(0.1 * 100, 0.1 * 1000)
 }
 
-Circle.prototype.updateCircleStyle = function (strId) {
-    const {strStyle, strKeyframes} = this.generateStyleAndKF(strId)
+Circle.prototype.initCircleStyle = function (strId) {
+    const strStyle = this.generateStyle(strId)
     const domCircle = document.getElementById(`circle-${strId}`)
     const domStyle = document.getElementById(`circle-style-${strId}`)
-    domCircle.style.cssText = strStyle
-    domStyle.innerText = strKeyframes
+    domCircle.style.animationName = ""
+    domCircle.style.opacity = "0"
+    domStyle.innerText = strStyle
 }
 
 Circle.prototype.wakeCircle = function (strId) {
     this.objAppConfig.objObjectStatus[strId] = 1
     const domCircle = document.getElementById(`circle-${strId}`)
     const domStyle = document.getElementById(`circle-style-${strId}`)
-    const strSheetOpacity = domStyle.sheet.cssRules[0][0].style.opacity
+    const strSheetOpacity = domStyle.sheet.cssRules[1][0].style.opacity
     const circleEaseIn = setInterval(() => {
         domCircle.style.opacity = (parseFloat(domCircle.style.opacity) + 0.01).toFixed(2)
-        if (domCircle.style.opacity > 1) {
-            console.log("wake" + strId, domCircle.style.opacity, strSheetOpacity, circleEaseIn)
-        }
+        if (domCircle.style.opacity > 1) console.log("wake" + strId, domCircle.style.opacity, strSheetOpacity, circleEaseIn)
         if (domCircle.style.opacity >= strSheetOpacity) {
             domCircle.style.animationName = strId
-            this.setSleepCircleFunc(strId, domCircle.style.animationIterationCount * domCircle.style.animationDuration.substring(0, domCircle.style.animationDuration.length - 1) * 1000 + 3000)
+            this.setSleepCircleFunc(strId, domStyle.sheet.cssRules[0].style.animationIterationCount * domStyle.sheet.cssRules[0].style.animationDuration.substring(0, domStyle.sheet.cssRules[0].style.animationDuration.length - 1) * 1000 + 3000)
             clearInterval(circleEaseIn)
         }
     }, this.generateRandomMilSec())
@@ -270,7 +172,7 @@ Circle.prototype.sleepCircle = function (strId) {
     const circleEaseOut = setInterval(() => {
         domCircle.style.opacity = (parseFloat(domCircle.style.opacity) - 0.01).toFixed(2)
         if (domCircle.style.opacity <= 0) {
-            this.updateCircleStyle(strId)
+            this.initCircleStyle(strId)
             this.objAppConfig.objObjectStatus[strId] = 0
             clearInterval(circleEaseOut)
         }
@@ -303,7 +205,7 @@ Circle.prototype.startWatcher = function () {
     }, this.objAppConfig.numNextCheckInterval)
 }
 
-Circle.prototype.runAnimateByKeyframesV2 = function () {
+Circle.prototype.runAnimateByKeyframesV2 = function (isTest = false) {
     const domFragment = document.createDocumentFragment()
     for (let i = 0; i < this.objAppConfig.numMaxObjectCount; i++) {
         let strId
@@ -319,6 +221,7 @@ Circle.prototype.runAnimateByKeyframesV2 = function () {
         domFragment.appendChild(domStyle)
     }
     this.domContainer.appendChild(domFragment)
+    if (isTest) return this.wakeCircle(Object.keys(this.objAppConfig.objObjectStatus)[0])
     this.funcCheck()
     this.startWatcher()
 }
