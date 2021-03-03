@@ -1,7 +1,3 @@
-// function generateRandomFloatNumber(min, max) {
-//     return Math.random().toFixed(2)
-// }
-
 function generateRandomIntegerNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
